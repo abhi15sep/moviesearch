@@ -4,6 +4,8 @@ import * as Pages from 'Pages';
 import MovieService from 'Services/MovieService';
 import Navbar from 'Components/Navbar/Navbar';
 import Footer from 'Components/Footer/Footer';
+import SearchBar from 'Components/SearchBar/SearchBar';
+
 import './AppContainer.scss';
 class AppContainer extends Component {
 
@@ -18,25 +20,49 @@ class AppContainer extends Component {
       },
       navbar: [{
         label: 'Home',
-        url: '/searchpage/'
+        url: '#/searchpage/'
       }],
       footer: {
         label: 'Movies Search',
         copyright: '©copyright 2018'
       },
       logo: 'Mobie Search',
+      keywords: '',
       error: ''
     }
-  }
-  componentDidMount() {
-    MovieService.getMovies().then((movies) => {
-      console.log(movies);
-      this.setState({ movies });
-    }).catch(error => {
-      this.setState({ error: error.message });
-    });
+    this.doSearchMovies = this.doSearchMovies.bind(this);
+    this.onChangeKeywords = this.onChangeKeywords.bind(this);
+    this.fetchMovies = this.fetchMovies.bind(this);
   }
 
+  fetchMovies() {
+    if (this.state.keywords) {
+      MovieService.searchMovies(this.state.keywords).then((movies) => {
+        console.log(movies);
+        this.setState({ movies });
+      }).catch(error => {
+        this.setState({ error: error.message });
+      });
+    } else {
+      MovieService.getMovies().then((movies) => {
+        console.log(movies);
+        this.setState({ movies });
+      }).catch(error => {
+        this.setState({ error: error.message });
+      });
+    }
+  }
+
+  doSearchMovies(e) {
+    e.preventDefault();
+    this.fetchMovies();
+  }
+  onChangeKeywords(e) {
+    this.setState({keywords: e.target.value });
+  }
+  componentDidMount() {
+    this.fetchMovies();
+  }
   render() {
     const routeUrls = Object.keys(Pages).map(Page => Page.toLowerCase());
     const indexRoute = routeUrls.length >= 0 ? routeUrls[0] + '/' : '/';
@@ -51,7 +77,13 @@ class AppContainer extends Component {
     return <div className="container">
       <Navbar
         navs={this.state.navbar}
-        currentUrl={this.props.location.pathname} />
+        currentUrl={this.props.location.pathname} 
+        rightComponent={<SearchBar 
+          keywords={this.state.keywords} 
+          onSubmit={this.doSearchMovies} 
+          onChange={this.onChangeKeywords}
+          />}
+        />
       {content}
       <Footer {...this.state.footer} />
     </div>

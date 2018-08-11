@@ -19,4 +19,16 @@ export default {
 			})
 		})
 	},
+	searchMovies: (keywords) => {
+		return new Promise((resolve,reject) => {
+			const queryObj = (keywords && { query : keywords}) || {};
+			themoviedb.search.getMovie(queryObj, (data) => {
+				return resolve(JSON.parse(data));
+			}, 
+			(error) => {
+				console.error(error);
+				reject(error);
+			})
+		})
+	},
 }

@@ -7,7 +7,6 @@ export class SearchPage extends Component {
   constructor(props) {
     super(props);
     this.updateState = this.updateState.bind(this);
-    console.log(this.props);
   }
   static mapStoreToProps(store) {
     return {

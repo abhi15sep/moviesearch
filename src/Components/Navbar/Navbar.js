@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Navbar.scss';
-import SearchBar from 'Components/SearchBar/SearchBar';
-
 
 const Navbar = (props) => {
+  const currentUrl = '#' + props.currentUrl;
   return <div className="navbar">
     <ul>
       {
         props.navs && props.navs.map((item, index) => {
-          return <li key={index}><a className={props.currentUrl === item.url ? 'active' : ''} href={item.url}>{item.label}</a></li>
+          return <li key={index}><a className={ currentUrl === item.url ? 'active' : ''} href={item.url}>{item.label}</a></li>
         })
       }
-      <SearchBar />
+      {props.rightComponent}
     </ul>
   </div>
 }
@@ -20,6 +19,7 @@ const Navbar = (props) => {
 Navbar.propTypes = {
   navs: PropTypes.array,
   currentUrl: PropTypes.string,
+  rightComponent: PropTypes.object
 }
 
 export default Navbar;
