@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import './Navbar.scss';
 
 const Navbar = (props) => {
-  const currentUrl = '#' + props.currentUrl;
   return <div className="navbar">
     <ul>
       {
         props.navs && props.navs.map((item, index) => {
-          return <li key={index}><a className={ currentUrl === item.url ? 'active' : ''} href={item.url}>{item.label}</a></li>
+          return <li key={index} onClick={item.onClick}><a className={ props.activeId === item.id ? 'active' : ''} href={item.url}>{item.label}</a></li>
         })
       }
       {props.rightComponent}
@@ -18,8 +17,7 @@ const Navbar = (props) => {
 
 Navbar.propTypes = {
   navs: PropTypes.array,
-  currentUrl: PropTypes.string,
-  rightComponent: PropTypes.object
+  activeId: PropTypes.number
 }
 
 export default Navbar;

@@ -18,9 +18,18 @@ class AppContainer extends Component {
         total_pages: 0,
         total_results: 0
       },
+      current: {
+        genresId: 0,
+        movie: {}
+      },
       navbar: [{
+        id: 0,
         label: 'Home',
-        url: '#/searchpage/'
+        onClick: () => {
+          const current = Object.assign(this.state.current, { genresId: 0})
+          this.setState({ current });
+          this.fetchMovies();
+        }
       }],
       footer: {
         label: 'Movies Search',
@@ -33,19 +42,24 @@ class AppContainer extends Component {
     this.doSearchMovies = this.doSearchMovies.bind(this);
     this.onChangeKeywords = this.onChangeKeywords.bind(this);
     this.fetchMovies = this.fetchMovies.bind(this);
+    this.fetchByGenres = this.fetchByGenres.bind(this);
   }
-
+  fetchByGenres(id) {
+    MovieService.getMoviesByGenres(id).then((movies) => {
+      this.setState({ movies });
+    }).catch(error => {
+      this.setState({ error: error.message });
+    });
+  }
   fetchMovies() {
     if (this.state.keywords) {
       MovieService.searchMovies(this.state.keywords).then((movies) => {
-        console.log(movies);
         this.setState({ movies });
       }).catch(error => {
         this.setState({ error: error.message });
       });
     } else {
       MovieService.getMovies().then((movies) => {
-        console.log(movies);
         this.setState({ movies });
       }).catch(error => {
         this.setState({ error: error.message });
@@ -58,15 +72,30 @@ class AppContainer extends Component {
     this.fetchMovies();
   }
   onChangeKeywords(e) {
-    this.setState({keywords: e.target.value });
+    this.setState({ keywords: e.target.value });
   }
   componentDidMount() {
     this.fetchMovies();
+    MovieService.getMovieGenres().then((genres) => {
+      const navs = genres.map(item => {
+        return {
+          id: item.id,
+          label: item.name,
+          active: this.genresId === item.id,
+          onClick: () => {
+            const current = Object.assign(this.state.current, { genresId: item.id })
+            this.setState({ current });
+            this.fetchByGenres(item.id);
+          }
+        }
+      });
+      this.setState({ navbar: this.state.navbar.concat(navs) });
+    });
   }
   render() {
     const routeUrls = Object.keys(Pages).map(Page => Page.toLowerCase());
     const indexRoute = routeUrls.length >= 0 ? routeUrls[0] + '/' : '/';
-    const content = <RouterWrapper indexRoute={indexRoute} store={this.state} dispatch={this.setState.bind(this)} >
+    const content = <RouterWrapper indexRoute={indexRoute} store={this.state} root={this} >
       {
         Object.keys(Pages).map((name) => {
           const Page = Pages[name];
@@ -77,13 +106,13 @@ class AppContainer extends Component {
     return <div className="container">
       <Navbar
         navs={this.state.navbar}
-        currentUrl={this.props.location.pathname} 
-        rightComponent={<SearchBar 
-          keywords={this.state.keywords} 
-          onSubmit={this.doSearchMovies} 
-          onChange={this.onChangeKeywords}
-          />}
-        />
+        activeId={this.state.current.genresId}
+      />
+      <SearchBar
+        keywords={this.state.keywords}
+        onSubmit={this.doSearchMovies}
+        onChange={this.onChangeKeywords}
+      />
       {content}
       <Footer {...this.state.footer} />
     </div>

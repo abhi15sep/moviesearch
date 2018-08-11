@@ -10,18 +10,27 @@ export default {
 			})
 		})
 	},
-	getMovies: () => {
+	getMoviesByGenres: (id, page = 1) => {
 		return new Promise((resolve,reject) => {
-			themoviedb.discover.getMovies({}, (data) => resolve(JSON.parse(data)), 
+			themoviedb.genres.getMovies({id, page }, (data) => resolve(JSON.parse(data)), 
 			(error) => {
 				console.error(error);
 				reject(error);
 			})
 		})
 	},
-	searchMovies: (keywords) => {
+	getMovies: (page = 1) => {
 		return new Promise((resolve,reject) => {
-			const queryObj = (keywords && { query : keywords}) || {};
+			themoviedb.discover.getMovies({page}, (data) => resolve(JSON.parse(data)), 
+			(error) => {
+				console.error(error);
+				reject(error);
+			})
+		})
+	},
+	searchMovies: (keywords, page = 1) => {
+		return new Promise((resolve,reject) => {
+			const queryObj = (keywords && { query : keywords, page}) || {};
 			themoviedb.search.getMovie(queryObj, (data) => {
 				return resolve(JSON.parse(data));
 			}, 

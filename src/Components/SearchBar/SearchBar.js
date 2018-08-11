@@ -5,7 +5,7 @@ import './SearchBar.scss';
 const SearchBar = (props) => {
     return <div className="searchbar">
         <form onSubmit={props.onSubmit}>
-            <input type="text" name="search" onChange={props.onChange} value={props.keywords}
+            <input type="text" name="search_keywords" onChange={props.onChange} value={props.keywords}
                 placeholder="Search for a movie, tv show, person..." />
             <button type="submit"><i className="fa fa-search"></i>Search</button>
         </form>

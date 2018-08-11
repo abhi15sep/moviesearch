@@ -9,7 +9,7 @@ class RouterWrapper extends Component {
   }
   render() {
 
-    const dispatch = this.props.dispatch;
+    const root = this.props.root;
     const children = React.Children.map(this.props.children, (child) => {
       const params = child.type.params || '' ;
       const url = child.key + params;
@@ -17,7 +17,7 @@ class RouterWrapper extends Component {
       const path =  this.props.baseRoute ? pathWithBase : '/' + url.toLowerCase();
       return <Route onChange={this.props.onChange} path={path} name={child.key} key={child.key} component={(props) => {
           const Child = child.type;
-        return <Child {...child.props} {...props} store={this.props.store} dispatch={dispatch} />} }/>
+        return <Child {...child.props} {...props} store={this.props.store} root={root} />} }/>
     });
 
     return (
