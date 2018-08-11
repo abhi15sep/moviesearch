@@ -4,7 +4,7 @@ import * as Pages from 'Pages';
 import MovieService from 'Services/MovieService';
 import Navbar from 'Components/Navbar/Navbar';
 import Footer from 'Components/Footer/Footer';
-
+import './AppContainer.scss';
 class AppContainer extends Component {
 
   constructor(props) {
@@ -24,13 +24,16 @@ class AppContainer extends Component {
         label: 'Movies Search',
         copyright: '©copyright 2018'
       },
-      logo: 'Mobie Search'
+      logo: 'Mobie Search',
+      error: ''
     }
   }
   componentDidMount() {
     MovieService.getMovies().then((movies) => {
       console.log(movies);
       this.setState({ movies });
+    }).catch(error => {
+      this.setState({ error: error.message });
     });
   }
 
@@ -45,13 +48,13 @@ class AppContainer extends Component {
         })
       }
     </RouterWrapper>;
-    return <React.Fragment>
+    return <div className="container">
       <Navbar
         navs={this.state.navbar}
         currentUrl={this.props.location.pathname} />
       {content}
       <Footer {...this.state.footer} />
-    </React.Fragment>
+    </div>
   }
 }
 

@@ -21,14 +21,19 @@ export class SearchPage extends Component {
   
   render() {
     const movies = this.props.store.movies.results;
+    const error = movies && movies.length === 0  ? 'No Movies Found!' : this.props.store.error;
     return <div className={this.props.className.toLowerCase()}>
       {movies && movies.map((movie, index) => {
         return <MovieCard key={index} 
         id={movie.id} 
         title={movie.title} 
+        poster={movie.poster_path}
         rating={movie.vote_average} 
         overview={movie.overview} />
       })}
+      {error && <div className="searchpage-messagebox">
+        {error}
+      </div>}
       </div>
   }
 }

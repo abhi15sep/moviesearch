@@ -2,8 +2,73 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     border-radius: 5px;
+    width: 250px;
+    margin: 5px;
+    position: relative;
+    &-thumbnail {
+        z-index: 0;
+        left:0;
+        top:0;
+        border-radius: 5px;
+        img {
+            width: 100%;
+        }
+    }
 
-    img {
-        border-radius: 5px 5px 0 0;
+
+    &-info {
+        background: linear-gradient(0deg, black, rgba(0, 0, 0, 0.5), transparent);
+        color: white;
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        position: absolute;
+        left:0;
+        bottom: 0;
+        transition: opacity 0.5s ease;
+        height: 100%;
+        opacity: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        &:hover {
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        button {
+            width: 100%;
+            height: 35px;
+            border: 0;
+            color: white;
+            background-color: brown;
+            font-size: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            outline: 0;
+            transition: background-color 0.5s ease;
+            &:hover {
+                background-color: red;
+                transition: background-color 0.5s ease;
+            }
+        }
+
+    }
+    &-title {
+        color: white;
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        margin: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    &-overview {
+        font-size: 0.8rem;
+    }
+    &-rating {
+        text-align: right;
+        font-size: 0.1.1rem;
+        color: chocolate;
     }
 }

@@ -14,13 +14,14 @@
                 text-align: center;
                 padding: 14px 16px;
                 text-decoration: none;
-
+                transition: background-color 0.5s ease;
                 &.active {
                     background-color: brown;
                 }
 
                 &:hover {
-                    background-color: #111;
+                    transition: background-color 0.5s ease;
+                    background-color: red;
                 }
             }
         }

@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import './MovieCard.scss';
 
 const MovieCard = (props) => {
+    const overview = props.overview.length > 200 ? props.overview.substring(0, 200) + ' ...' : props.overview;
     return <div className="moviecard">
-        <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" alt={props.title} />
+        <div className="moviecard-thumbnail">
+            <p className="moviecard-title">{props.title}</p>
+            <img src={`https://image.tmdb.org/t/p/w500${props.poster}`} alt={props.title} />
+        </div>
         <div className="moviecard-info">
-            <h3>{props.title}</h3>
-            <p className="moviecard-rating">{props.rating}</p>
-            <p className="moviecard-overview">{props.overview}</p>
+            <p className="moviecard-rating">Rates: {props.rating}</p>
+            <div className="moviecard-overview">{overview}</div>
             <p><button>More Info</button></p>
         </div>
     </div>
