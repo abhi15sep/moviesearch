@@ -122,7 +122,8 @@ class AppContainer extends Component {
     });
   }
   render() {
-    const indexRoute = this.props.location.pathname;
+    const routeUrls = Object.keys(Pages).map(Page => Page.toLowerCase());
+    const indexRoute = this.props.location.pathname === '/' ? routeUrls[0]: this.props.location.pathname;
     const content = <RouterWrapper indexRoute={indexRoute} store={this.state} root={this} >
       {
         Object.keys(Pages).map((name) => {

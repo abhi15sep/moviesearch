@@ -1,5 +1,10 @@
 # Movie Search
 
+Preview: http://moviesearch2018.s3-website.eu-west-2.amazonaws.com/#/searchpage
+
+## Screenshots
+![Screenshot](/moviesearch/blob/master/screenshot.png?raw=true)
+
 To fast install dependences, I recommend to use [yarn](https://yarnpkg.com/lang/en/). Otherwise, you can use `npm run` instead `yarn`.
 
 For example:
@@ -47,3 +52,10 @@ The `root` is `AppContainer` itself, and then you can update global store in the
 
 Most of components are stateless component, as we only need to render the view with data, no complex logic and inner state management needed.
 
+## Infinite Scroll
+
+Used `react-infinite-scroller` component for infinite scroller feature.
+
+## CSS
+
+The stylesheet are following [BEM](http://getbem.com/) naming convention, I don't have much time to create utilities css class, but I would really love to implement flexbox base css grids system.
