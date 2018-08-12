@@ -6,15 +6,14 @@ const GenresLabels = (props) => {
     return <div className="genreslabels">
         <ul>
             {props.genres && props.genres.map((item, index) => {
-                return <li key={index} onClick={props.onClick}><a>{item.name}</a></li>
+                return <li key={index}><a>{item.name}</a></li>
             })}
         </ul>
     </div>
 }
 
 GenresLabels.propTypes = {
-    genres: PropTypes.array,
-    onClick: PropTypes.func
+    genres: PropTypes.array
 }
 
 export default GenresLabels;

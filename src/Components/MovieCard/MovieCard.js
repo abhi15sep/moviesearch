@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './MovieCard.scss';
 
 const MovieCard = (props) => {
-    const overview = props.overview.length > 200 ? props.overview.substring(0, 200) + ' ...' : props.overview;
+    const overview = (props.overview && props.overview.length > 200) ? props.overview.substring(0, 200) + ' ...' : props.overview;
     return <div className="moviecard" onClick={props.onClick}>
         <div className="moviecard-thumbnail">
             <p className="moviecard-title">{props.title}</p>

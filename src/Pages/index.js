@@ -1,2 +1,2 @@
-export * from './SearchPage';
-export * from './DetailPage';
+export * from './SearchPage/SearchPage';
+export * from './DetailPage/DetailPage';

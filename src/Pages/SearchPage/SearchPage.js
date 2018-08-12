@@ -19,7 +19,6 @@ export class SearchPage extends Component {
     this.loadNextPage = this.loadNextPage.bind(this);
     this.fetchMovies = this.fetchMovies.bind(this);
     this.showMovieDetail = this.showMovieDetail.bind(this);
-    console.log(props.store);
   }
 
   loadNextPage() {
@@ -57,31 +56,33 @@ export class SearchPage extends Component {
       });
     }
   }
-  showMovieDetail(movie) {
+  showMovieDetail(data) {
     window.scrollTo(0, 0);
+    const movie = { 
+      title: data.title,
+      releaseDate: data.release_date,
+      genres: data.genre_ids && data.genre_ids.map(id=> {
+        const genresName = this.props.store.genres.find(item => item.id === id);
+        return {
+          id,
+          name: genresName && genresName.name
+        }
+      }),
+      poster: data.poster_path,
+      overview: data.overview,
+      rating: data.vote_average,
+      votes: data.vote_count
+    };
+    localStorage.setItem('movie_store', JSON.stringify(movie));
     this.props.history.push({
       pathname: '/detailpage',
-      movie: { 
-        title: movie.title,
-        releaseDate: movie.release_date,
-        genres: movie.genre_ids && movie.genre_ids.map(id=> {
-          const genresName = this.props.store.genres.find(item => item.id === id);
-          return {
-            id,
-            name: genresName && genresName.name
-          }
-        }),
-        poster: movie.poster_path,
-        overview: movie.overview,
-        rating: movie.vote_average,
-        votes: movie.vote_count
-      }
+      movie
   });
   }
   render() {
     const movies = this.state.movies.results;
     const error = movies && movies.length === 0 ? 'No Movies Found!' : this.props.store.error;
-    return <div className={this.props.className.toLowerCase()}>
+    return <div className={'searchpage'}>
       <ScrollerContainer
         pageStart={1}
         loadMore={() => {

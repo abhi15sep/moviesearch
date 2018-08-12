@@ -8,7 +8,6 @@ import SearchBar from 'Components/SearchBar/SearchBar';
 
 import './AppContainer.scss';
 class AppContainer extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -21,7 +20,7 @@ class AppContainer extends Component {
       genres: [],
       current: {
         genresId: -1,
-        movie: {}
+        movie: null
       },
       navbar: [{
         id: -1,
@@ -44,13 +43,9 @@ class AppContainer extends Component {
     this.onChangeKeywords = this.onChangeKeywords.bind(this);
     this.fetchMovies = this.fetchMovies.bind(this);
     this.fetchByGenres = this.fetchByGenres.bind(this);
+  
   }
   fetchByGenres(id) {
-    if (this.props.location.pathname !== '/searchpage') {
-      this.props.history.push({
-        pathname: '/searchpage'
-      })
-    }
     MovieService.getMoviesByGenres(id).then((movies) => {
       this.setState({ movies });
     }).catch(error => {
@@ -58,11 +53,6 @@ class AppContainer extends Component {
     });
   }
   fetchMovies() {
-    if (this.props.location.pathname !== '/searchpage') {
-      this.props.history.push({
-        pathname: '/searchpage'
-      })
-    }
     if (this.state.keywords) {
       MovieService.searchMovies(this.state.keywords).then((movies) => {
         this.setState({ movies });
@@ -80,6 +70,11 @@ class AppContainer extends Component {
 
   doSearchMovies(e) {
     e.preventDefault();
+    if (this.props.location.pathname !== '/searchpage') {
+      this.props.history.push({
+        pathname: '/searchpage'
+      })
+    }
     this.fetchMovies();
   }
   onChangeKeywords(e) {
@@ -94,19 +89,23 @@ class AppContainer extends Component {
           label: item.name,
           active: this.genresId === item.id,
           onClick: () => {
+            if (this.props.location.pathname !== '/searchpage') {
+              this.props.history.push({
+                pathname: '/searchpage'
+              })
+            }
             const current = Object.assign(this.state.current, { genresId: item.id })
             this.setState({ current });
             this.fetchByGenres(item.id);
           }
         }
       });
-      
+
       this.setState({ navbar: this.state.navbar.concat(navs), genres });
     });
   }
   render() {
-    const routeUrls = Object.keys(Pages).map(Page => Page.toLowerCase());
-    const indexRoute = routeUrls.length >= 0 ? routeUrls[0] + '/' : '/';
+    const indexRoute = this.props.location.pathname;
     const content = <RouterWrapper indexRoute={indexRoute} store={this.state} root={this} >
       {
         Object.keys(Pages).map((name) => {

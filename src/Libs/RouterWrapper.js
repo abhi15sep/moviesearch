@@ -19,7 +19,7 @@ class RouterWrapper extends Component {
           const Child = child.type;
         return <Child {...child.props} {...props} store={this.props.store} root={root} />} }/>
     });
-
+    
     return (
       <Switch>
         {children}

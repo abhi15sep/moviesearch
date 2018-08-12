@@ -8,7 +8,10 @@ module.exports = {
         "src",
         "test"
     ],
-    setupFiles: ["jest-canvas-mock", 'whatwg-fetch'],
+    moduleNameMapper: {
+        "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    },
+    setupFiles: ['whatwg-fetch', "jest-localstorage-mock", "<rootDir>/SetupTests.js"],
     // Disable detailed coverage reporting in console
     coverageReporters: ['json', 'lcov'],
     testURL: 'http://localhost',

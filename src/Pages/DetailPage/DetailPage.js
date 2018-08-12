@@ -4,14 +4,13 @@ import GenresLabels from 'Components/GenresLabels/GenresLabels';
 import './DetailPage.scss';
 
 export const DetailPage = (props) => {
-    const movie = props.location && props.location.movie;
+    const movie = props.location && props.location.movie || JSON.parse(localStorage.getItem('movie_store'));
     if (!movie) {
         props.history.push({
             pathname: '/searchpage',
         });
-        return;
+        return <div />;
     }
-
     function goBack() {
         window.scrollTo(0, 0);
         props.history.push({
@@ -19,7 +18,7 @@ export const DetailPage = (props) => {
         });
     }
     const releaseYear = (movie.releaseDate && movie.releaseDate.split('-')[0]) || 'Unknow';
-    return <div className={props.className.toLowerCase()}>
+    return <div className={'detailpage'}>
         <div className="detailpage-panel">
             <div className="detailpage-thumbnail">
                 <img src={`https://image.tmdb.org/t/p/w500${movie.poster}`} alt={movie.title} />
