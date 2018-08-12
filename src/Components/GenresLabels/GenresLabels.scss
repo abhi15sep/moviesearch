@@ -1,0 +1,29 @@
+.genreslabels {
+    padding: 0 15px;
+    background-color: #333;
+    margin-bottom: 20px;
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        li {
+            float: left;
+            cursor: pointer;
+            margin: 5px;
+            background-color: darkorange;
+            a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                transition: background-color 0.5s ease;
+                &:hover {
+                    transition: background-color 0.5s ease;
+                    background-color: red;
+                }
+            }
+        }
+    }
+}

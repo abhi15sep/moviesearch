@@ -31,8 +31,11 @@
         border: none;
         outline: 0;
         color: gray;
+        
     }
-
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 30px white inset;
+    }
     button {
         float: left;
         background: #2196F3;

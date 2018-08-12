@@ -12,7 +12,7 @@ export default {
 	},
 	getMoviesByGenres: (id, page = 1) => {
 		return new Promise((resolve,reject) => {
-			themoviedb.genres.getMovies({id, page }, (data) => resolve(JSON.parse(data)), 
+			themoviedb.genres.getMovies({id, page}, (data) => resolve(JSON.parse(data)), 
 			(error) => {
 				console.error(error);
 				reject(error);

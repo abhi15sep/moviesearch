@@ -18,15 +18,16 @@ class AppContainer extends Component {
         total_pages: 0,
         total_results: 0
       },
+      genres: [],
       current: {
-        genresId: 0,
+        genresId: -1,
         movie: {}
       },
       navbar: [{
-        id: 0,
+        id: -1,
         label: 'Home',
         onClick: () => {
-          const current = Object.assign(this.state.current, { genresId: 0})
+          const current = Object.assign(this.state.current, { genresId: -1})
           this.setState({ current });
           this.fetchMovies();
         }
@@ -45,6 +46,11 @@ class AppContainer extends Component {
     this.fetchByGenres = this.fetchByGenres.bind(this);
   }
   fetchByGenres(id) {
+    if (this.props.location.pathname !== '/searchpage') {
+      this.props.history.push({
+        pathname: '/searchpage'
+      })
+    }
     MovieService.getMoviesByGenres(id).then((movies) => {
       this.setState({ movies });
     }).catch(error => {
@@ -52,6 +58,11 @@ class AppContainer extends Component {
     });
   }
   fetchMovies() {
+    if (this.props.location.pathname !== '/searchpage') {
+      this.props.history.push({
+        pathname: '/searchpage'
+      })
+    }
     if (this.state.keywords) {
       MovieService.searchMovies(this.state.keywords).then((movies) => {
         this.setState({ movies });
@@ -89,7 +100,8 @@ class AppContainer extends Component {
           }
         }
       });
-      this.setState({ navbar: this.state.navbar.concat(navs) });
+      
+      this.setState({ navbar: this.state.navbar.concat(navs), genres });
     });
   }
   render() {
