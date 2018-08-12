@@ -5,8 +5,8 @@ import MovieService from 'Services/MovieService';
 import Navbar from 'Components/Navbar/Navbar';
 import Footer from 'Components/Footer/Footer';
 import SearchBar from 'Components/SearchBar/SearchBar';
-
 import './AppContainer.scss';
+
 class AppContainer extends Component {
   constructor(props) {
     super(props);
@@ -45,6 +45,10 @@ class AppContainer extends Component {
     this.fetchByGenres = this.fetchByGenres.bind(this);
   
   }
+  /**
+   * 
+   * @param {*} id Genres id
+   */
   fetchByGenres(id) {
     MovieService.getMoviesByGenres(id).then((movies) => {
       this.setState({ movies });
@@ -52,6 +56,9 @@ class AppContainer extends Component {
       this.setState({ error: error.message });
     });
   }
+  /**
+   * Fetch movies or search movies from keywords
+   */
   fetchMovies() {
     if (this.state.keywords) {
       MovieService.searchMovies(this.state.keywords).then((movies) => {
@@ -67,8 +74,12 @@ class AppContainer extends Component {
       });
     }
   }
-
+/**
+ * 
+ * @param {*} e Search movies
+ */
   doSearchMovies(e) {
+    // prevent form action casue page refresh
     e.preventDefault();
     if (this.props.location.pathname !== '/searchpage') {
       this.props.history.push({
@@ -77,11 +88,17 @@ class AppContainer extends Component {
     }
     this.fetchMovies();
   }
+  /**
+   * 
+   * @param {*} e Update search bar text keyword to state
+   */
   onChangeKeywords(e) {
     this.setState({ keywords: e.target.value });
   }
   componentDidMount() {
+    // Initial fetch movies data
     this.fetchMovies();
+    // Fetch genres data for nav bar
     MovieService.getMovieGenres().then((genres) => {
       const navs = genres.map(item => {
         return {

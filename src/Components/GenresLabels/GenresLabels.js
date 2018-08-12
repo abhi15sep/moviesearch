@@ -2,6 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './GenresLabels.scss';
 
+/**
+ * 
+ * @param {*} props 
+ * Genres Labels Component
+ */
 const GenresLabels = (props) => {
     return <div className="genreslabels">
         <ul>

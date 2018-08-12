@@ -1,6 +1,9 @@
 
 import React from 'react';
 import './Loader.scss';
+/**
+ * Loader Component
+ */
 const Loader = () => {
     return <div className="loader-container">
         <div className="loader">

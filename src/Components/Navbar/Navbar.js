@@ -2,6 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Navbar.scss';
 
+/**
+ * 
+ * @param {*} props 
+ * Nav bar Component
+ */
 const Navbar = (props) => {
   return <div className="navbar">
     <ul>

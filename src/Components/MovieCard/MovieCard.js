@@ -2,6 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './MovieCard.scss';
 
+/**
+ * 
+ * @param {*} props 
+ * Movie Card Component
+ */
 const MovieCard = (props) => {
     const overview = (props.overview && props.overview.length > 200) ? props.overview.substring(0, 200) + ' ...' : props.overview;
     return <div className="moviecard" onClick={props.onClick}>

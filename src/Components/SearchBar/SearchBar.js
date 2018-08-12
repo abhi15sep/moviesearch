@@ -2,6 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './SearchBar.scss';
 
+/**
+ * 
+ * @param {*} props 
+ * Search Bar Component
+ */
 const SearchBar = (props) => {
     return <div className="searchbar">
         <form onSubmit={props.onSubmit}>

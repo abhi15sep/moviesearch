@@ -25,7 +25,7 @@ describe('<SearchPage> Start Component Test', () => {
                     title: "Alien",
                     video: false,
                     vote_average: 8,
-                    vote_count:6108
+                    vote_count: 6108
                 }],
                 total_pages: 0,
                 total_results: 2

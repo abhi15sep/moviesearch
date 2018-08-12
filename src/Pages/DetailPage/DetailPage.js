@@ -3,21 +3,35 @@ import PropTypes from 'prop-types';
 import GenresLabels from 'Components/GenresLabels/GenresLabels';
 import './DetailPage.scss';
 
+/**
+ * 
+ * @param {*} props 
+ * Detail page to show movie detail information
+ */
 export const DetailPage = (props) => {
-    const movie = props.location && props.location.movie || JSON.parse(localStorage.getItem('movie_store'));
+    const movie = (props.location && props.location.movie) || JSON.parse(localStorage.getItem('movie_store'));
+
+    // If movie object doesn't exist, go back to search page
+
     if (!movie) {
         props.history.push({
             pathname: '/searchpage',
         });
         return <div />;
     }
+
+    /**
+     * Goback to last page
+     */
     function goBack() {
         window.scrollTo(0, 0);
         props.history.push({
             pathname: '/searchpage',
         });
     }
+
     const releaseYear = (movie.releaseDate && movie.releaseDate.split('-')[0]) || 'Unknow';
+
     return <div className={'detailpage'}>
         <div className="detailpage-panel">
             <div className="detailpage-thumbnail">
