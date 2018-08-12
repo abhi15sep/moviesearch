@@ -3,7 +3,7 @@
 Preview: http://moviesearch2018.s3-website.eu-west-2.amazonaws.com/#/searchpage
 
 ## Screenshots
-![Screenshot](/moviesearch/blob/master/screenshot.png?raw=true)
+![Screenshot](/screenshot.png?raw=true)
 
 To fast install dependences, I recommend to use [yarn](https://yarnpkg.com/lang/en/). Otherwise, you can use `npm run` instead `yarn`.
 
