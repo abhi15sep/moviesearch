@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import 'Styles/styles.scss';
+import "babel-polyfill";
 
 const rootEl = document.getElementById('root');
 ReactDOM.render(<App />, rootEl);
